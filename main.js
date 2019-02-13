@@ -37,6 +37,8 @@ const main = () => {
         canvasElement.setAttribute('height', height);
 
         const game = new Game(canvasElement);
+        game.gameOverCallback(buildGameOver);
+        
         game.startLoop();
 
         const setPlayerDirection = (event) => {
@@ -44,7 +46,7 @@ const main = () => {
                 game.player.setDirection(-1)
             } else if(event.code === 'ArrowDown'){
                 game.player.setDirection(1)
-            }
+            };
         };
 
         document.addEventListener('keydown', setPlayerDirection);
@@ -66,4 +68,5 @@ const main = () => {
     buildSplashScreen();
 
 };
+
 window.addEventListener('load', main);

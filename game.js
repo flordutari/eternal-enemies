@@ -6,6 +6,7 @@ class Game{
         this.ctx = this.canvas.getContext('2d');
         this.player;
         this.enemies = [];
+        this.isGameOver = false;
     };
 
     startLoop() {
@@ -23,9 +24,11 @@ class Game{
             this.updateCanvas();
             this.clearCanvas();
             this.drawCanvas();
+            if(!this.isGameOver){
 
             window.requestAnimationFrame(loop);
-        }
+            };
+        };
 
         window.requestAnimationFrame(loop);
     };
@@ -50,6 +53,19 @@ class Game{
 
     checkAllCollisions(){
         this.player.checkScreen();
+        this.enemies.forEach((enemy, index) => {
+            if (this.player.checkCollisionEnemy(enemy)){
+                this.player.loseLive();
+                this.enemies.splice(index, 1);
+                if(this.player.lives === 0){
+                    this.isGameOver = true;
+                    this.onGameOver();
+                };
+            };
+        });
+    };
 
-    }
-}
+    gameOverCallback(callback){
+        this.onGameOver = callback;
+    };
+};

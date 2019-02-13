@@ -35,4 +35,22 @@ class Player{
 
         //if this.y > this.canvas.he
     }
+
+    checkCollisionEnemy(enemy){
+        
+        const collideRight = this.x + this.size / 2 > enemy.x - enemy.size / 2;
+        const collideLeft = this.x - this.size / 2 < enemy.x + enemy.size / 2;
+        const collideTop = this.y + this.size / 2 > enemy.y - enemy.size / 2;
+        const collideBottom = this.y - this.size / 2 < enemy.y + enemy.size / 2;
+
+        if(collideRight && collideLeft && collideTop && collideBottom) {
+            return true;
+        }
+
+        return false;
+    }
+
+    loseLive(){
+        this.lives--;
+    }
 };
